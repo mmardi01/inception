@@ -1,0 +1,7 @@
+version: '3'
+services:
+  nginx:
+    container_name: nginx-container
+    build: ./requirements/nginx
+    ports:
+      - "3000:80"
