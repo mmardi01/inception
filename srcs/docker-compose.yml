@@ -1,19 +1,28 @@
 version: '3'
 services:
-  # nginx:
-  #   container_name: nginx-container
-  #   build: ./requirements/nginx
-  #   ports:
-  #     - "3000:90"
-  # mariadb:
-  #   container_name: mariadb-container
-  #   build: ./requirements/mariadb
-  #   env_file:
-  #     - ./.env
+  nginx:
+    container_name: nginx-container
+    build: ./requirements/nginx
+    ports:
+      - "443:443"
+    volumes:
+      - "wordpress_data:/var/www/html"
+  mariadb:
+    container_name: mariadb-container
+    build: ./requirements/mariadb
+    env_file:
+      - .env
+    volumes:
+      - "wordpress_data:/var/lib/mysql"
   wordpress:
     container_name: wordpress-container
     build: ./requirements/wordpress
     env_file:
-      - ./.env
+      - .env
     ports:
-      - "3000:80"
+      - "9000:9000"
+    volumes:
+      - "wordpress_data:/var/www/html"
+volumes:
+  mariadb_data:
+  wordpress_data:
