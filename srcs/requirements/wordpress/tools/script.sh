@@ -9,19 +9,14 @@ mv wp-cli.phar usr/local/bin/wp
 
 wp core download  --path="/var/www/html/" --allow-root
 
-rm -f /var/www/html/index.html
+sleep 5
 
-cp /var/www/html/wp-config-sample.php /var/www/html/wp-config.php
 
-sed -i "s/database_name_here/$DB_NAME/" /var/www/html/wp-config.php
+wp config create --dbname=$DB_NAME --dbuser=$USER_NAME --dbpass=$DB_PSWD --dbhost=mariadb  --path="/var/www/html" --allow-root
 
-sed -i "s/username_here/$USER_NAME/" /var/www/html/wp-config.php
 
-sed -i "s/password_here/$DB_PSWD/" /var/www/html/wp-config.php
-
-wp user create mmardiwp mmardiwp@example.com role=author --path="/var/www/html/" -user_pass=1234 --allow-root
 sed -i 's/listen = \/run\/php\/php7.3-fpm.sock/listen = 9000/g' /etc/php/7.3/fpm/pool.d/www.conf
 
 mkdir run/php
-echo "creat run/php floder"
+echo "creat run/php folder"
 echo "star wordpress" && /usr/sbin/php-fpm7.3 -F 

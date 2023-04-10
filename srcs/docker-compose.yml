@@ -4,16 +4,18 @@ services:
     container_name: nginx-container
     build: ./requirements/nginx
     ports:
-      - "443:443"
+      - "8080:8080"
     volumes:
       - "wordpress_data:/var/www/html"
   mariadb:
     container_name: mariadb-container
     build: ./requirements/mariadb
+    ports:
+      - "3306:3306"
     env_file:
       - .env
     volumes:
-      - "wordpress_data:/var/lib/mysql"
+      - "mariadb_data:/var/lib/mysql"
   wordpress:
     container_name: wordpress-container
     build: ./requirements/wordpress
